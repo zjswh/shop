@@ -1,0 +1,136 @@
+{include file="Test/header" title="preview"  slide="0"}
+
+ <div class="main">
+    <div class="content">
+    	<div class="content_top">
+    		<div class="back-links">
+    		    <p>{$pro.name}</p>
+    	    </div>
+    		<div class="clear"></div>
+    	</div>
+    	<div class="section group">
+			<div class="cont-desc " style="width: 100%">
+				<div class="product-details">
+					<div class="grid images_3_of_2" style="width: 40%;">
+						<div id="container">
+						   <div id="products_example">
+							   <div id="products">
+
+                                   <img src="__PUBLIC__/{$pro.attr}" alt=""/>
+							</div>
+						</div>
+					</div>
+				</div>
+				    <div class="desc span_3_of_2">
+					<h2>{$pro.name}</h2>
+					<p>{$pro.name}.</p>
+
+					<div class="available">
+						<p>参数选择:</p>
+					<ul>
+						<li>颜色:
+							<select>
+							<option>宝石红</option>
+							<option>天空蓝</option>
+							<option>浅色绿</option>
+						</select></li>
+						<li>大小:<select>
+							<option>大</option>
+							<option>中</option>
+							<option>小</option>
+						</select></li>
+
+					</ul>
+                        <div class="price" style="margin-top:30px;">
+                            <p>库存量: {$pro.num}</p>
+                            <p>购买数量：<input type="number"  id="num" value="1" style="width: 50px;" min="1"/></p>
+                            <p>价格: <span style="font-size:20px;" id="price">￥{$pro.price}</span></p>
+                        </div>
+					</div>
+				<div class="share-desc">
+
+					<div class="button"><span><a href="#" id="buy" data-id="{$pro.id}">点击购买</a></span></div>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+			        <div class="clear"></div>
+		         </div>
+
+
+        <div class="content_bottom">
+    		<div class="heading">
+    	    	<h3>相似商品</h3>
+    		</div>
+    		<div class="see">
+    			<p><a href="{:url('index/Test/more',['type'=>'new'])}">查看更多</a></p>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+        <div class="section group">
+            {volist name="new_p" id="product"}
+				<div class="grid_1_of_4 images_1_of_4">
+					 <a href="#"><img src="__PUBLIC__/{$product.attr}" height="200px"  alt=""></a>
+					<div class="price" style="border:none">
+					       		<div class="add-cart" style="float:none">								
+									<h4><a href="{:url('index/Test/preview','id='.$product.id)}">查看详情</a></h4>
+							     </div>
+							 <div class="clear"></div>
+					</div>
+				</div>
+            {/volist}
+		</div>
+        </div>
+
+ 		</div>
+ 	</div>
+    </div>
+ </div>
+<script>
+
+    localStorage.removeItem('product');
+    $('#num').change(function(){
+        var reg=/^[1-9]\d*$/; //由 1-9开头 的正则表达式
+        if(reg.test($(this).val())) {
+            var price = {$pro.price}*$(this).val();
+            price = price.toFixed(2);
+            $('#price').html("￥"+price);
+        }else{
+        alert('输入个数有误');
+    }
+
+    });
+    $('#buy').click(function(){
+
+       if($.cookie('username')){
+           if(confirm('确认购买吗？') == true){
+               $.ajax({
+                   url:"{:url('index/Test/buy')}",
+                   type:'post',
+                   data:{id:$(this).data('id'),name: $.cookie('username'),num:$('#num').val()},
+                   dataType:'json',
+                   success:function(res){
+                       switch(res){
+                           case '1': alert('购买成功');break;
+                           case '2': alert('购买失败，库存不足');break;
+                           case '3': alert('不存在该商品');break;
+                           case '4': alert('购买出错，请联系管理员');break;
+                           case '5': alert('您未登录，请先登录');break;
+                           case '6': alert('购买失败，用户余额不足,充值后,用户可在未完成订单列表中继续支付');break;
+                           case '7': alert('购买失败，订单创建失败');break;
+                           case '8': alert('付款成功，但是订单支付状态未改');break;
+                       }
+                       window.location.reload();
+                   }
+               });
+           }
+
+       }else{
+
+           alert('请先登录！');
+           localStorage.setItem('product',{$pro.id});
+           window.location.href='{:url("index/user/login")}';
+       }
+    });
+</script>
+   {include file='Test/footer'}

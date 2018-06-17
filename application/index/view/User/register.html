@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap Login Form Template</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="__PUBLIC__/login/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="__PUBLIC__/login/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/login/css/form-elements.css">
+        <link rel="stylesheet" href="__PUBLIC__/login/css/style.css">
+
+
+        <link rel="shortcut icon" href="__PUBLIC__/login/ico/favicon.png">
+        <style>
+            .form-group{margin-left:50px;}
+            .form-group > input{width:300px;}
+            .ts{width:300px;margin:5px 0 0 90px;color: red;
+                display: none;}
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>用户注册</h3>
+                                    <p>若已有账号，请直接 <a href="{:url('index/user/login')}">登录</a></p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-lock"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form popup" >
+			                    	<div class="form-group">
+			                    		<label style="width:80px;" for="username">用户名：</label>
+			                        	<input type="text" name="username"   class="form-username" id="username">
+                                        <p class="ts">ss</p>
+			                        </div>
+			                        <div class="form-group">
+			                        	<label  style="width:80px;" for="password">密    码：</label>
+			                        	<input type="password" name="password"  class="form-password" id="password">
+                                        <p class="ts"></p>
+			                        </div>
+                                    <div class="form-group">
+                                        <label  style="width:80px;" for="repassword">确认密码：</label>
+                                        <input type="password" name="repassword"  class="form-password" id="repassword">
+                                        <p class="ts">两次密码输入不正确</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  style="width:80px;" for="email">邮箱：</label>
+                                        <input type="text" name="email"  id="email">
+                                        <p class="ts"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  style="width:80px;" for="mobile">手机号：</label>
+                                        <input type="text" name="mobile"   id="mobile">
+                                        <p class="ts"></p>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                    </div>
+			                        <button type="submit" class="btn" name="register" value="zc" id="register" >注册</button>
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- Javascript -->
+        <script src="__PUBLIC__/login/js/jquery-1.11.1.min.js"></script>
+        <script src="__PUBLIC__/login/bootstrap/js/bootstrap.min.js"></script>
+        <script src="__PUBLIC__/login/js/jquery.backstretch.min.js"></script>
+
+        <script src="__PUBLIC__/js/jquery.cookie.js"></script>
+        <script src="__PUBLIC__/js/gt.js"></script>
+        <script>
+
+            $(function(){
+
+                $('#repassword').blur(function(){
+                    var pass   = $('#password').val();
+                    var repass = $('#repassword').val();
+                    if(pass != repass){
+                        $('#repassword').addClass('input-error');
+                        $('#repassword').next('.ts').show();
+                    }else{
+                        $('#repassword').next('.ts').hide();
+                    }
+                });
+                $('#email').blur(function(){
+                    var email_reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                    if(!email_reg.test($('#email').val())){
+                        $('#email').next('.ts').show().html('邮箱格式不正确');
+                    }else{
+                        $('#email').next('.ts').hide();
+                    }
+                });
+
+                $('#username').blur(function(){
+                   if($(this).val()){
+                       $.ajax({
+                           url:"{:url('index/User/checkUser')}",
+                           data:{username:$(this).val()},
+                           type:'post',
+                           dataType:'json',
+                           success:function(data){
+                               if(data == 'no'){
+                                   $('#username').next('p').show().html('用户名已被占用');
+                               }else{
+                                   $('#username').next('p').hide();
+                               }
+                           }
+                       });
+
+                   }
+                });
+                $('#password').blur(function(){
+                    if($(this).val()){
+                        $(this).next('p').hide();
+                    }
+                });
+
+                $('#mobile').blur(function(){
+                    var mobile_reg = /^1[34578]\d{9}$/;
+                    if(!mobile_reg.test($('#mobile').val())){
+                        $('#mobile').next('.ts').show().html('手机号码格式不正确');
+                        return false;
+                    }else{
+                        $('#mobile').next('.ts').hide();
+                        return false;
+                    }
+                });
+
+                $('#register').click(function(){
+                    var mobile_reg = /^1[34578]\d{9}$/;
+                    $('.ts').hide();
+                    if(!$('#username').val()){
+                        $('#username').next('.ts').show().html('用户名不得为空');   return false;
+                    }else if(!$('#password').val()){
+                        $('#password').next('.ts').show().html('密码不得为空');   return false;
+                    }else if(!$('#email').val()){
+                        $('#email').next('.ts').show().html('邮箱不得为空');   return false;
+                    }else if(!$('#mobile').val()){
+                        $('#mobile').next('.ts').show().html('手机号不得为空');   return false;
+                    }else if(!$('#repassword').val()){
+                        $('#repassword').next('.ts').show().html('两次密码输入不正确');   return false;
+                    }else if(!mobile_reg.test($('#mobile').val())){
+                        $('#mobile').next('.ts').show().html('手机号码格式不正确');
+                        return false;
+                    }
+
+                });
+
+            })
+
+
+            $.backstretch([
+                "__PUBLIC__/login/img/backgrounds/2.jpg"
+            ], {duration: 3000, fade: 750});
+        </script>
+
+        <script src="__PUBLIC__/login/js/scripts.js"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="__PUBLIC__/login/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>

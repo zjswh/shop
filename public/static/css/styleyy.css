@@ -1,0 +1,49 @@
+*{margin:0px;padding:0px;font-family:"微软雅黑";}
+
+*{margin: 0;padding: 0;}
+body{
+    background:#353535; 
+}
+.Ranking{
+    width:100%;
+    height:auto;
+}
+/*背景图片*/
+.Ranking .bg_top{
+            height:150px;
+            line-height:150px;
+            background: url('../img/bg_top.jpg');
+            color:#fff;
+            text-align:center;
+}
+/*分类*/
+.Ranking .classify{
+        background: url('../img/bg_class.jpg') no-repeat;
+        background-size: cover;
+        width:1200px;
+        height:420px;
+        margin:0 auto;
+}
+
+/*分类列表*/
+.Ranking .classify div{
+        width:300px;
+        float: left;
+        color:#fff;
+        text-align:center;
+        padding-top:15px;
+}
+/*歌曲名*/
+.Ranking .classify div p{
+    margin-top:20px;
+    margin-left:-20px;
+    cursor:pointer;
+}
+.Ranking .classify div p:hover{
+	color: #333;
+}
+.Ranking .classify div .music_author{
+    display: block;
+    margin-top:5px;
+    color:#ddd; 
+}

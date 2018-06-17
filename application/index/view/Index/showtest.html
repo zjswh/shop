@@ -1,0 +1,40 @@
+<div id="main">
+
+    <!--排行版-->
+    <div class='Ranking'>
+
+        <h2 class='bg_top'>排行榜</h2>
+
+        <div class='classify'>
+            <div class='new'>
+                <h3>巅峰榜<br/>新歌</h3>
+                {volist name="list_new" id="music"}
+                {$music}<br>
+                {/volist}
+            </div>
+
+            <div class='bill'>
+                <h3>巅峰榜<br/>新歌速递</h3>
+                {volist name="list_bb" id="music"}
+                {$music}<br>
+                {/volist}
+            </div>
+            <div class='hot'>
+                <h3>巅峰榜<br/>热歌</h3>
+                {volist name="list_hito" id="music"}
+                {$music}<br>
+                {/volist}
+            </div>
+            <div class='ktv'>
+                <h3>巅峰榜<br/>ktv热歌</h3>
+                {volist name="list_hot" id="music"}
+                {$music}<br>
+                {/volist}
+            </div>
+        </div>
+    </div>
+
+
+    <audio style='display:none' id="myaudio"  controls="controls" loop="false" hidden="true">
+
+</div>

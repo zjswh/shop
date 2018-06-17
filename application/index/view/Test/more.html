@@ -1,0 +1,78 @@
+{include file="Test/header" title="home" slide="0"}
+<style>
+    .pagination{margin: 20px 0;}
+    .pagination li {float:left; width:40px;height:40px;background: #fff;border:1px solid #999;text-align: center;
+                        cursor: pointer;line-height: 40px;}
+    .pagination li a{display: block;height:40px;width: 40px;}
+    .pagination li:hover{color: blue;background: #ddd}
+
+</style>
+
+ <div class="main">
+    <div class="content" style="min-height:450px;">
+    	<div class="content_top">
+            <div class="heading">
+                <h3>更多商品</h3>
+            </div>
+    		<div class="clear"></div>
+    	</div>
+	      <div class="section group" >
+              {volist name="new_p" id="product" }
+              <div class="grid_1_of_4 images_1_of_4 list" >
+
+                  <a href="{:url('index/Test/preview','id='.$product.id)}"><img src="__PUBLIC__/{$product.attr}" height="200px"  alt="" /></a>
+                  <h2>{$product.name} </h2>
+                  <div class="price-details">
+                      <div class="price-number">
+                          <p><span class="rupees">${$product.price}</span></p>
+                      </div>
+                      <div class="add-cart">
+                          <h4><a href="{:url('index/Test/preview','id='.$product.id)}">查看详情</a></h4>
+                      </div>
+                      <div class="clear"></div>
+                  </div>
+
+              </div>
+              {/volist}
+
+			</div>
+        <div>
+            <span>共{$all}条记录</span>
+            <div style="float: right;">{$new_p->render()}</div>
+        </div>
+    </div>
+
+ </div>
+</div>
+
+<script>
+    $(function(){
+        //解决不对齐的问题
+        $('.list').each(function(index){
+            if(index%4 == 0){
+                $(this).css('margin-left','0px');
+            }
+        });
+
+
+        //分页的显示
+        var page = getUrlParam('page');
+        if(!page){
+            page = 1;
+        }
+        $('.pagination li').eq(page).css({'background':'#337ab7','color':'#fff'});
+
+        $('.pagination li').click(function(){
+            $(this).css({'background':'#337ab7','color':'#fff'});
+        });
+
+
+    })
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+</script>
+
+{include file="Test/footer"}

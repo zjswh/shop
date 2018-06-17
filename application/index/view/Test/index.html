@@ -1,0 +1,152 @@
+{include file="Test/header" title="home" slide="0"}
+
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>主题市场</h3>
+                <li><a href="{:url('index/test/more')}">女装 / 男装 / 内衣</a></li>
+                <li><a href="#">鞋靴 / 箱包 / 配件</a></li>
+                <li><a href="#">家电 / 数码 / 手机</a></li>
+                <li><a href="#">美妆 / 洗护 / 保健品</a></li>
+                <li><a href="#">珠宝 / 眼镜 / 手表</a></li>
+                <li><a href="#">运动 / 户外 / 乐器</a></li>
+                <li><a href="#">游戏 / 动漫 / 影视</a></li>
+                <li><a href="#">美食 / 生鲜 / 零食</a></li>
+                <li><a href="#">鲜花 / 宠物 / 农资</a></li>
+                <li><a href="#">房产 / 装修 / 建材</a></li>
+                <li><a href="#">家具 / 家饰 / 家纺</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header_bottom_right">
+        <div class="slider">
+            <div id="slider">
+                <div id="mover">
+                    <div id="slide-1" class="slide">
+                        <div class="slider-img">
+                            <a href="preview.html"><img src="__PUBLIC__/images/slide-1-image.png" alt="learn more" /></a>
+                        </div>
+                        <div class="slider-text">
+                            <h1>Clearance<br><span>SALE</span></h1>
+                            <h2>限时8折</h2>
+                            <div class="features_list">
+                                <h4>点击查看商品详情</h4>
+                            </div>
+                            <a href="{:url('index/Test/preview','id=3')}" class="button">Shop Now</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    {volist name="banner" id="ban"}
+                        <div class="slide">
+                            <div class="slider-text">
+                                <h1>{$ban.name}<br><span>仅售</span></h1>
+                                <h2>打{$ban.zk}折</h2>
+                                <div class="features_list">
+                                    <h4>点击查看商品详情</h4>
+                                </div>
+                                <a href="{:url('index/Test/preview','id='.$ban.proid)}" class="button">现在购买</a>
+                            </div>
+                            <div class="slider-img">
+                                <a href="{:url('index/Test/preview','id='.$ban.proid)}"><img src="__PUBLIC__/images/{$ban.attr}" alt="learn more" /></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    {/volist}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+ <div class="main">
+    <div class="content">
+    	<div class="content_top">
+    		<div class="heading">
+    		<h3>最新商品</h3>
+    		</div>
+    		<div class="see">
+    			<p><a href="{:url('index/Test/more',['type'=>'new'])}">查看更多</a></p>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+	      <div class="section group">
+              {volist name="new_p" id="product" }
+              <div class="grid_1_of_4 images_1_of_4">
+                  <a href="{:url('index/Test/preview','id='.$product.id)}"><img src="__PUBLIC__/{$product.attr}"  height="200px" alt="" /></a>
+                  <h2>{$product.name} </h2>
+                  <div class="price-details">
+                      <div class="price-number">
+                          <p><span class="rupees">${$product.price}</span></p>
+                      </div>
+                      <div class="add-cart">
+                          <h4><a href="{:url('index/Test/preview','id='.$product.id)}">查看详情</a></h4>
+                      </div>
+                      <div class="clear"></div>
+                  </div>
+
+              </div>
+              {/volist}
+
+			</div>
+			<div class="content_bottom">
+    		<div class="heading">
+    		<h3>最热商品</h3>
+    		</div>
+    		<div class="see">
+    			<p><a href="{:url('index/Test/more','type=hot')}">查看更多</a></p>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+			<div class="section group">
+                {volist name="feature_p" id="product"}
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="{:url('index/Test/preview','id='.$product.id)}"><img src="__PUBLIC__/{$product.attr}" height="200px"  alt="" /></a>
+                    <h2>{$product.name} </h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">${$product.price}</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="{:url('index/Test/preview','id='.$product.id)}">查看详情</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                {/volist}
+
+			</div>
+    </div>
+ </div>
+</div>
+<!--<form action="">-->
+    <!--<input type="text" name="fname" id="newName"/>-->
+    <!--<button id="randomNames" onclick="randomName">显示</button>-->
+    <!--<input type="submit" value="submit"/>-->
+<!--</form>-->
+
+<!--<script>-->
+
+    <!--var names = [-->
+        <!--"缥缈","羽裳","轩辕","韶华","浮光","烟雨","蝶舞","星月",-->
+        <!--"绝恋","碧影","星愿","落霞","忘忧","幻真","翩飞","惊鸿",-->
+        <!--"化羽","绝影","醉梦","波澜","山岚","春华","星雨","浩瀚",-->
+        <!--"风萧","浮波","逐风","沧澜","鸿鹄","如梦","入画","青衣",-->
+        <!--"流影","舒荷","清曲","醉月","风和","瑞雪","舞纱","夜渺",-->
+        <!--"无微","晨阳","佳容","宛碧","纹香","梵音","静晓","润玉",-->
+        <!--"嬛绵","明秀","归云","春媱","夏露","秋颜","冬耀","涟漪",-->
+        <!--"若溪","微凉","暖阳","半夏","崖悔","洛尘","矜柔","绚烂",-->
+        <!--"真淳","明媚","迷离","隐忍","灼热","幻灭","落拓","锦瑟",-->
+        <!--"邪殇","离殇","恋夏","白绾","虞兮","故黎","青辞","未央"-->
+    <!--]-->
+
+    <!--function randomName(){-->
+        <!--var randomNumber = Math.floor(Math.random() * (names.length));-->
+        <!--document.getElementById('newName').value = names[randomNumber];-->
+        <!--console.log(names[randomNumber]);-->
+    <!--}-->
+<!--</script>-->
+{include file="Test/footer"}

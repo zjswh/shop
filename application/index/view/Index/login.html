@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gt-php-sdk-demo</title>
+    <style>
+        body {
+            margin: 50px 0;
+            text-align: center;
+        }
+        .inp {
+            border: 1px solid gray;
+            padding: 0 10px;
+            width: 200px;
+            height: 30px;
+            font-size: 18px;
+        }
+        .btn {
+            border: 1px solid gray;
+            width: 100px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #embed-captcha {
+            width: 300px;
+            margin: 0 auto;
+        }
+        .show {
+            display: block;
+        }
+        .hide {
+            display: none;
+        }
+        #notice {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>极验验证SDKDemo</h1>
+<form class="popup" action="" method="post" onsubmit="return false;">
+    <h2>嵌入式Demo，使用表单形式提交二次验证所需的验证结果值</h2>
+    <br>
+    <p>
+        <label for="username2">用户名：</label>
+        <input class="inp" id="username2" type="text" value="">
+    </p>
+    <br>
+    <p>
+        <label for="email">邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
+        <input class="inp" id="email" type="text" value="">
+    </p>
+    <br>
+    <p>
+        <label for="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;日：</label>
+        <input class="inp" id="birthday" type="text" value="">
+    </p>
+    <br>
+    <input class="btn" id="embed-submit" type="submit" value="提交">
+</form>
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+<script src="__PUBLIC__/js/gt.js"></script>
+<script>
+    var handlerEmbed = function (captchaObj) {
+        captchaObj.appendTo("#embed-captcha");
+
+        captchaObj.onReady(function () {
+            $("#wait").hide();
+        }).onSuccess(function () {
+            var validate = captchaObj.getValidate();
+            $.ajax({
+                // 获取id，challenge，success（是否启用failback）
+                url: "__GT__/web/api.php?t=" + (new Date()).getTime(), // 加随机数防止缓存
+                type: "post",
+                data:{
+                    a:'second',
+                    user_id:$('#username2').val(),
+                    geetest_challenge:validate.geetest_challenge,
+                    geetest_validate:validate.geetest_validate,
+                    geetest_seccode:validate.geetest_seccode
+                },
+                dataType: "json",
+                success: function (data) {
+
+                        if (data.status === 'success') {
+
+                            $.ajax({
+                                url:'http://www.tp5.com/index/user/checklogin',
+                                type:'post',
+                                data:{
+                                    'nickname':$('#username2').val(),
+                                    'email':$('#email').val(),
+                                    'birthday':$('#birthday').val()
+                                },
+                                success:function(data){
+                                    console.log(data);
+                                }
+
+
+                            });
+                        } else if (data.status === 'fail') {
+                            alert('登录失败，请完成验证');
+                            captchaObj.reset();
+                        }
+
+                }
+            });
+
+
+        });
+        $('#embed-submit').click(function(){
+            captchaObj.verify();
+        });
+    };
+    $.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "__GT__/web/api.php?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "post",
+        data:{a:'first', user_id:$('#username2').val()},
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                new_captcha: data.new_captcha,
+                product: "bind", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handlerEmbed);
+        }
+    });
+</script>
+</body>
+</html>

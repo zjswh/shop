@@ -1,0 +1,78 @@
+{include file="Test/header" slide='0' title="已完成订单"}
+<style>
+    table{width: 100%;margin-top: 20px;}
+    #tr_head{height: 50px;line-height: 50px;}
+    th{background: #9C9C9C;}
+    td{text-align: center;height: 40px;line-height: 40px;font-size: 16px;margin-bottom: 10px}
+    .pagination{margin: 20px 0;}
+    .pagination li {float:left; width:40px;height:40px;background: #fff;border:1px solid #999;text-align: center;
+        cursor: pointer;line-height: 40px;}
+    .pagination li a{display: block;height:40px;width: 40px;}
+    .pagination li:hover{color: blue;background: #ddd}
+</style>
+<div class="main">
+    <div class="content" style="min-height:450px;">
+        <div class="content_top">
+            <div class="heading">
+                <h3>已完成订单</h3>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group"  style="min-height:350px;">
+            <table  rules="all">
+                <tr id="tr_head">
+                    <th></th>
+                    <th>订单号</th>
+                    <th>商品</th>
+                    <th>数量</th>
+                    <th>总价</th>
+                    <th>送货地址</th>
+                    <th>下单时间</th>
+                </tr>
+                {volist name="list" id="orderlist"}
+                <tr>
+                    <td>{$orderlist.id}</td>
+                    <td>{$orderlist.orderid}</td>
+                    <td>{$orderlist.product.name}</td>
+                    <td>{$orderlist.num}</td>
+                    <td>{$orderlist.prices}</td>
+                    <td>{$orderlist.address}</td>
+                    <td>{$orderlist.updatetime}</td>
+                </tr>
+                {/volist}
+            </table>
+
+        </div>
+        <div>
+            <span>共{$all}条记录</span>
+            <div style="float: right;">
+                {$list->render()}
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script>
+    $(function(){
+
+        //分页的显示
+        var page = getUrlParam('page');
+        if(!page){
+            page = 1;
+        }
+        $('.pagination li').eq(page).css({'background':'#337ab7','color':'#fff'});
+
+        $('.pagination li').click(function(){
+            $(this).css({'background':'#337ab7','color':'#fff'});
+        });
+
+
+    })
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+</script>
+{include file="Test/footer" }

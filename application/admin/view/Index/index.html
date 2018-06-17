@@ -1,0 +1,232 @@
+﻿{include file="Index/header" slide="0"}
+<style>
+    .title{width: 100%;font-size: 20px;font-weight: bold;text-align: center;padding:20px 0 0 0;
+        height: 40px;}
+    .title span{text-align: left;height:40px;float: left;line-height: 40px;margin-left: 5px;}
+    select{display: block;width: 80px;float: left;}
+</style>
+  <!-- /. NAV SIDE  -->
+
+  <div id="page-wrapper">
+    <div class="header">
+      <h1 class="page-header">
+            统计面板
+      </h1>
+
+
+    </div>
+    <div id="page-inner">
+
+      <div class="dashboard-cards">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+              <div class="card-image red">
+                <i class="material-icons dp48">supervisor_account</i>
+              </div>
+              <div class="card-stacked red">
+                <div class="card-content">
+                  <h3>{$allUser}</h3>
+                </div>
+                <div class="card-action">
+                  <strong>全部用户</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+              <div class="card-image orange">
+                <i class="material-icons dp48">equalizer</i>
+              </div>
+              <div class="card-stacked orange">
+                <div class="card-content">
+                  <h3>{$todayUser}</h3>
+                </div>
+                <div class="card-action">
+                  <strong>今日注册</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+              <div class="card-image blue">
+                <i class="material-icons dp48">shopping_cart</i>
+              </div>
+              <div class="card-stacked blue">
+                <div class="card-content">
+                  <h3>{$products}</h3>
+                </div>
+                <div class="card-action">
+                  <strong>总销售量</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+              <div class="card-image green">
+                <i class="material-icons dp48">import_export</i>
+              </div>
+              <div class="card-stacked green">
+                <div class="card-content">
+                  <h3>{$product}</h3>
+                </div>
+                <div class="card-action">
+                  <strong>今日销售</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- /. ROW  -->
+      <div class="row" style="display: none;">
+        <div class="col-xs-12 col-sm-12 col-md-7">
+          <div class="cirStats">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="card-panel text-center">
+                  <h4>每日销售</h4>
+                  <div class="easypiechart" id="easypiechart-blue" data-percent="82" ><span class="percent">82%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="card-panel text-center">
+                  <h4>每月销售</h4>
+                  <div class="easypiechart" id="easypiechart-red" data-percent="46" ><span class="percent">46%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="card-panel text-center">
+                  <h4>Customers</h4>
+                  <div class="easypiechart" id="easypiechart-teal" data-percent="84" ><span class="percent">84%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="card-panel text-center">
+                  <h4>Sales</h4>
+                  <div class="easypiechart" id="easypiechart-orange" data-percent="55" ><span class="percent">55%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--/.row-->
+        <div class="col-xs-12 col-sm-12 col-md-5">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="card">
+                <div class="card-image donutpad">
+                  <div id="morris-donut-chart" style="height:350px;"></div>
+                </div>
+                <div class="card-action">
+                  <b>商品类别</b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--/.row-->
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="card">
+
+            <div class="card-image line">
+                <div class="title" style="margin-left: 10px">
+                    <select name="year" id="year" style="width: 100px">
+                    </select>
+                    <select name="month" id="month">
+                    </select>
+                    <span>每日注册用户统计</span>
+                </div>
+              <div id="morris-line-chart" style="height: 300px;"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-7">
+          <div class="card">
+
+            <div class="card-image bar">
+                <div class="title" style="margin-left:150px">
+                    <select name="year" id="year2" style="width: 100px">
+                    </select>
+                    <select name="month" id="month2">
+                    </select>
+                    <span>每日销售统计</span>
+                </div>
+              <div id="morris-bar-chart" style="height: 300px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="card">
+            <div class="card-image">
+              <div id="morris-area-chart" style="height: 500px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+        </div>
+      </div>
+      <!-- /. ROW  -->
+
+
+
+
+
+      <!-- /. ROW  -->
+      <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large red">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul>
+          <li><a class="btn-floating red"><i class="material-icons">track_changes</i></a></li>
+          <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+          <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+        </ul>
+      </div>
+
+      <footer><p>All right reserved. Template by: <a href="https://php.cn/">php中文网</a></p>
+
+
+      </footer>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+
+<script src="__PUBLIC__/js/echarts.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script src="__PUBLIC__/admin/js/index.js"></script>
+
+
+{include file="Index/footer"}
